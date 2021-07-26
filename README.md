@@ -1,2 +1,2 @@
-# InsuranceFraudPred
+# 정형데이터 및 비정형데이터 수집, 머신러닝을 활용한 보험사기예측 프로젝트입니다.
 Data Project
