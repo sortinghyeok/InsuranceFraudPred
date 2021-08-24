@@ -65,12 +65,19 @@ HOSP_DVSN_VARIES : 보험 청구건에 대하여 다닌 병원의 종류 구분 
 CHME_LICE_COUNT : 담당의사 면허 건수
 
 상관분석 결과
-(https://user-images.githubusercontent.com/80696846/130571767-5686de12-86a4-4b07-a4ce-d17c517124f3.png)
+![image](https://user-images.githubusercontent.com/80696846/130572167-9d5b6d11-7451-4dc8-b90c-d185fb829b8d.png)
 
+다중회귀분석 결과
+![image](https://user-images.githubusercontent.com/80696846/130572245-944178e1-1a39-493a-aca9-c4a99a33f4d4.png)
 
+RandomForest 변수중요도 분석 결과
+![image](https://user-images.githubusercontent.com/80696846/130572377-f86ef01d-8387-45e3-a213-d4eace94b33f.png)
+
+------------------------------------------------------------------------------------------------
+
+위 결과를 종합한 경우, 아래와 같은 5개의 컬럼이 보험사기자 여부와 상대적으로 높은 관련성을 보였다.
 1. CHME_LICE_COUNT
 2. HOSP_DVSN_VARIES
 3. HOSP_VARIES
 4. TOTAL_VLID_HOSP_OTDA
 5. CLAIM_CNT
-의 순으로 보험사기 여부와 높은 관련성을 보였다.
