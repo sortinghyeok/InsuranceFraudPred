@@ -71,18 +71,21 @@ CHME_LICE_COUNT : 담당의사 면허 건수
 ------------------------------------
 
 ![image](https://user-images.githubusercontent.com/80696846/130572167-9d5b6d11-7451-4dc8-b90c-d185fb829b8d.png)
+
 상관분석 결과를 보면, SIU_CUST_YN과 CLAIM_CNT, TOTAL_VLID_HOSP_OTDA, HOSP_VARIES, HOSP_DVSN_VARIES, CHME_LICE_COUNT가 유효하게 관련있는 컬럼임을 확인할 수 있다.
 
 다중회귀분석 결과
 ------------------------------------
 
 ![image](https://user-images.githubusercontent.com/80696846/130572245-944178e1-1a39-493a-aca9-c4a99a33f4d4.png)
+
 다중회귀분석 결과를 보면, MINCRDT, CAUS_CODE, CLAIM_CNT, TOTAL_VLID_HOSP_OTDA, HOSP_VARIES, HOSP_DVSN_VARIES, CHME_LICE_COUNT 등이 유효한 컬럼임을 확인할 수 있다.
 
 RandomForest 변수중요도 분석 결과
 ------------------------------------
 
 ![image](https://user-images.githubusercontent.com/80696846/130572377-f86ef01d-8387-45e3-a213-d4eace94b33f.png)
+
 Random Forest의 변수중요도 분석 결과로부터 CLAIM_CNT, TOTAL_VLID_HOSP_OTDA, HOSP_VARIES, HOSP_DVSN_VARIES, CHME_LICE_COUNT, HEED_HOSP_YN, NON_PAY_RATIO 등이 유효한 컬럼임을 확인할 수 있다.
 
 ------------------------------------------------------------------------------------------------
