@@ -367,14 +367,28 @@ SVMSMOTE
 
 교차 검증은 위와 같이 다양한 TEST SET과 TRAIN SET을 만들어 결과를 도출하는 방식이다.
 
+--------------------------------------------
+
 여기에, 우리는 불균형이 심한 데이터를 가지고 있으므로 LABEL들이 비슷한 비율을 유지할 수 있도록 Stratified K-fold 방식을 채택하여 교차 검증을 진행하였다.
 
 ![image](https://user-images.githubusercontent.com/80696846/130646613-e1f7dcea-fff9-4acf-81ff-9dc13d7e29e7.png)
 
+ACCURACY
+
+------------------------------------------------
+
 ![image](https://user-images.githubusercontent.com/80696846/130646640-d2bdcb3f-e2a5-4dbd-b888-5a24329b2002.png)
+
+CONFUSION MATRIX
+
+---------------------------------------------------------
 
 ![image](https://user-images.githubusercontent.com/80696846/130646744-0175e3df-edce-400e-9031-46bf31ccbaa3.png)
 
+CONFUSION MATRIX 이분화 후 시각화 사진
+
 위 사진의 경우, 초록색 부분이 제대로 분류된 부분이고 주황색 부분이 그렇지 못한 부분이다.
+
+--------------------------------------------------------
 
 ![image](https://user-images.githubusercontent.com/80696846/130646773-3a0da351-1408-4ec1-8b0f-d68c28353f33.png)
