@@ -16,7 +16,7 @@ Notion Link : https://nervous-stranger-60b.notion.site/Insurance-Fraud-Predictio
 
 따라서 이번 프로젝트는 사기 여부에 대한 예측을 확률로 나타내어 보완하고, 보험사가 고객을 관리함에 있어 더 효율적인 운영을 할 수 있도록 예측모델을 구축하는 데에 개발 목적을 둔다.
 
-## 데이터 소개
+## 데이터 정제, 전처리
 Raw_Data 폴더 내부의 4개의 데이터 셋 파일은 각각 보험사 가입 회원정보(CUST), 고객별 청구(CLAIM), 보험설계사 관련 데이터(FPINFO), 보험 계약 관련 데이터(CNTT)이다.
 
 이들의 정제를 위하여 인코딩 방식을 UTF-8로 맞추고, CSV파일로 변환한 것이 Converted_Data 폴더 내부 컨텐츠이다. 폴더 내부 각 파일에 대응하는 내용은 RAW_DATA와 같다.
@@ -197,10 +197,158 @@ RandomForest 변수중요도 분석 결과
 ------------------------------------
 
 ![image](https://user-images.githubusercontent.com/80696846/130635012-fa1e39df-81f2-4ec7-9ef6-9503ec8346d1.png)
+
 Random Forest의 변수중요도 분석 결과로부터 EXPR_COUNT, WORK_YEARS_MIN, WORK_YEARS_MAX의 세 컬럼 정도가 0.1 이상의 중요도를 보였으나, 이같은 결과로는 Target Data와 깊은 관계가 있는 컬럼이 존재한다고 보기 어려웠다.
 
 ------------------------------------------------------------------------------------------------
 
 위 결과를 종합하여, CNTT와 FPINFO 테이블에서는 CUST_ID 상의 SIU_CUST_YN을 구분해내기 어렵다는 결론을 도출하였다.
 
+### 최종 데이터셋 : Insurance Data (CUST + CLAIM + CNTT + FPINFP)
+------------------------------------
+위의 두 데이터셋으로부터 우리는 유의미한 컬럼을 8개정도 추릴 수 있었다. 
 
+그러나 각각의 테이블에서 독자적으로 존재할 때에 이들은 큰 효과를 발휘하기 어려우므로, 이들을 하나의 데이터셋에 병합하여 분석용 데이터셋을 만들 필요성을 느끼게 되었다.
+
+때문에 제작한 것이 3번째 데이터셋인 Insurance Data로, 이는 모든 테이블에서 상대적으로 유의미하다고 생각되는 컬럼을 추출해 병합한 것이다.
+
+이 데이터셋에 포함된 컬럼은 아래와 같으며, 각 컬럼에 대한 정보는 위에서 설명한 것들을 포함하고 있으므로 별도로 기재하지 않는다.
+
+SEX,
+AGE,
+FP_CAREER,
+TOTALPREM,
+MNTH_INCM_AMT_AVG,
+MAIN_INSR_AMT_SUM,
+MINCRDT,
+CAUS_CODE_COUNT,
+DMND_RESN_CODE_COUNT,
+RESL_CD1_COUNT,
+NON_PAY_RATIO_SUM,
+CLAIM_CNT,
+TOTAL_VLID_HOSP_OTDA,
+HOSP_DVSN_VARIES,
+CHME_LICE_COUNT
+
+이들의 다중회귀분석 결과는 아래와 같다.
+
+![image](https://user-images.githubusercontent.com/80696846/130636696-d5562def-66c1-40d5-bf46-8705c3dabd47.png)
+
+
+## 데이터 모델링 적용 및 분석
+이제부터의 과정은 위에서 확정된 통합데이터 InsuranceData.csv를 사용한다.
+
+이 과정은 프로젝트 목적에 적합한 모델을 선택하고, overfitting을 방지하기위한 샘플링 기법을 선택하는 데에 중점을 준다.
+
+### 모델적용
+-----------------------------
+InsuranceData.csv에 대하여, 3가지 모델을 적용해 그 예측 성능을 비교해보기로 한다. 적용할 모델은 다음의 3가지이다.
+
+----------------------------
+Logistic Regression
+
+Random Forest
+
+Support Vector Machine
+
+-------------------------------
+
+또한 위 모델들에 대하여 아래의 sampling 방식을 적용해보도록 한다.
+
+-------------------------------------
+
+SMOTE
+
+BorderlineSMOTE
+
+ADASYN
+
+SVMSMOTE
+
+### Logistic Regression
+
+1. SMOTE
+-------------------------------
+![image](https://user-images.githubusercontent.com/80696846/130641296-9f157ec6-add5-467d-befd-5015c68c3174.png)
+
+![image](https://user-images.githubusercontent.com/80696846/130641339-be6c6bf8-d826-45ed-ba9d-8f3e68218d95.png)
+
+2. BorderlineSMOTE
+-----------------------------------
+![image](https://user-images.githubusercontent.com/80696846/130641679-1e4c1cfd-6be6-4c8b-b3bd-2503582ec1fb.png)
+
+![image](https://user-images.githubusercontent.com/80696846/130641721-afd1707b-888b-4ea7-9613-f376bb9e096f.png)
+
+3. ADASYN
+------------------------------------------
+![image](https://user-images.githubusercontent.com/80696846/130641882-9c75c6d2-50a5-4120-b176-ebdbae70575d.png)
+
+![image](https://user-images.githubusercontent.com/80696846/130641923-5937a3b7-c664-48a8-8fd9-fe50cf2dc3e5.png)
+
+4. SVMSMOTE
+-----------------------------------------------
+![image](https://user-images.githubusercontent.com/80696846/130642122-81945ee1-8b5d-4dd0-85ed-86648f0fb21a.png)
+
+![image](https://user-images.githubusercontent.com/80696846/130642166-cd875440-cc65-4cdc-9e72-e45497e5f810.png)
+
+위 과정의 경우, 대체적으로 Accuracy, recall, F1의 수치는 비슷했으나 SVMSMOTE가 precision 면에서 더 뛰어난 성능을 보였다.
+
+### Random Forest
+
+1. SMOTE
+--------------------------------------------
+![image](https://user-images.githubusercontent.com/80696846/130643027-fd890bdc-e7cc-44e2-ad01-b43bf8881088.png)
+
+![image](https://user-images.githubusercontent.com/80696846/130643075-ebe35f96-63e9-42b8-8eb1-4eb305ea6e87.png)
+
+2. BorderlineSMOTE
+-----------------------------------------------
+![image](https://user-images.githubusercontent.com/80696846/130643194-4f8fe9a8-09df-4e62-beee-d1a1d4c34e4f.png)
+
+![image](https://user-images.githubusercontent.com/80696846/130643252-2d4d5c2d-050b-406f-a1bd-c687355123f5.png)
+
+3. ADASYN
+-------------------------------------------------
+![image](https://user-images.githubusercontent.com/80696846/130643410-badb5117-0cf9-460a-a698-4b647d42b36e.png)
+
+![image](https://user-images.githubusercontent.com/80696846/130643440-0d3c7fdb-64af-4715-9f0c-7fcec656fe4a.png)
+
+4. SVMSMOTE
+----------------------------------------
+![image](https://user-images.githubusercontent.com/80696846/130642811-8d9051f9-b9b7-4776-827b-ae63d7be3f05.png)
+
+![image](https://user-images.githubusercontent.com/80696846/130642607-15897484-7068-4a67-9c30-42918c2dde89.png)
+
+### Support Vector Machine
+
+1. SMOTE
+--------------------------------------------
+![image](https://user-images.githubusercontent.com/80696846/130644054-dabeb525-b688-4f90-9964-3e7b064b9b4c.png)
+
+![image](https://user-images.githubusercontent.com/80696846/130644086-4e691d03-0a08-4dc3-b521-011702a1bc74.png)
+
+2. BorderlineSMOTE
+-----------------------------------------------
+![image](https://user-images.githubusercontent.com/80696846/130644186-8ddaef88-4aaf-4c07-b49d-3d0b4b82124e.png)
+
+![image](https://user-images.githubusercontent.com/80696846/130644212-56bf5323-5d15-4963-a660-f0fa31376f0e.png)
+
+3. ADASYN
+-------------------------------------------------
+![image](https://user-images.githubusercontent.com/80696846/130644337-7e598314-105f-41e9-af5d-9e2624eb5eef.png)
+
+![image](https://user-images.githubusercontent.com/80696846/130644381-8819905d-d305-4842-877d-3b0b3e8517ec.png)
+
+4. SVMSMOTE
+----------------------------------------
+![image](https://user-images.githubusercontent.com/80696846/130643933-b6a2b28d-c30d-46e1-b914-65b741fae33b.png)
+
+![image](https://user-images.githubusercontent.com/80696846/130643968-a6b9ccbb-3e14-472a-a4fb-b926c3033319.png)
+
+### 정리
+각 모델들에 관한 성능차는 위 자료에서 알 수 있듯이 뚜렷하게 나타나지 않으며, 대체로 비슷한 성능을 보인다.
+다만, 샘플링 방식의 경우는 SVMSMOTE가 Precision 면에서 상대적으로 높은 수준을 보였다.
+
+본 프로젝트의 목적이 보험사의 효율적인 고객관리에 있는만큼, LogisticRegression 모델의 Target Data 분류에 대한 확률 함수를 이용하기로 한다.
+
+정리하면, LogisticRegression 모델을 이용하되 SVMSMOTE방식으로 샘플링을 하여 예측 모델을 사용하기로 한다.
