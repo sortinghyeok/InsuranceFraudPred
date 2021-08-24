@@ -3,5 +3,5 @@
 1. cust + claim
 2. cust + cntt + fpinfo 
 3. cust + claim + fpinfo + cntt
-에 대한 데이터셋과 그에 대한 코드를 담고 있으며, 최종적으로 3번의 데이터셋을 분석에 기용하였다.
+에 대한 데이터셋과 그에 대한 코드를 담고 있으며, 최종적으로 3번의 데이터셋을 Modeling&Analysis를 통한 최종 결과물 산출에 기용하였다.
 3번 데이터셋을 만들기 위한 기본 csv파일들은 각각 claim + cust, cust + cntt&fpinfo 폴더 내부 산출물들을 이용한 것이다.
