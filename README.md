@@ -28,6 +28,7 @@ Raw_Data 폴더 내부의 4개의 데이터 셋 파일은 각각 보험사 가�
 각 전처리된 데이터셋의 컬럼 정보와 유효 컬럼은 아래와 같다.
 
 ### Cust + Claim
+----------------------------
 CUST_ID : 고객의 고유 아이디이다. 병합의 PK로서 역할을 하며, 분석용 데이터 셋에서 고유하다.
 
 SIU_CUST_YN : 보험사기자 여부이며, 분석 과정에 있어 Target Data가 된다. 1 : Y, 2 : N의 binary형태 데이터이며, 지도 학습에 있어 가장 중요한 역할을 하게 된다.
@@ -64,15 +65,20 @@ HOSP_DVSN_VARIES : 보험 청구건에 대하여 다닌 병원의 종류 구분 
 
 CHME_LICE_COUNT : 담당의사 면허 건수
 
+-------------------------------------------
+
 상관분석 결과
+------------------------------------
 
 ![image](https://user-images.githubusercontent.com/80696846/130572167-9d5b6d11-7451-4dc8-b90c-d185fb829b8d.png)
 
 다중회귀분석 결과
+------------------------------------
 
 ![image](https://user-images.githubusercontent.com/80696846/130572245-944178e1-1a39-493a-aca9-c4a99a33f4d4.png)
 
 RandomForest 변수중요도 분석 결과
+------------------------------------
 
 ![image](https://user-images.githubusercontent.com/80696846/130572377-f86ef01d-8387-45e3-a213-d4eace94b33f.png)
 
