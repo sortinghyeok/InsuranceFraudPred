@@ -65,12 +65,15 @@ HOSP_DVSN_VARIES : 보험 청구건에 대하여 다닌 병원의 종류 구분 
 CHME_LICE_COUNT : 담당의사 면허 건수
 
 상관분석 결과
+
 ![image](https://user-images.githubusercontent.com/80696846/130572167-9d5b6d11-7451-4dc8-b90c-d185fb829b8d.png)
 
 다중회귀분석 결과
+
 ![image](https://user-images.githubusercontent.com/80696846/130572245-944178e1-1a39-493a-aca9-c4a99a33f4d4.png)
 
 RandomForest 변수중요도 분석 결과
+
 ![image](https://user-images.githubusercontent.com/80696846/130572377-f86ef01d-8387-45e3-a213-d4eace94b33f.png)
 
 ------------------------------------------------------------------------------------------------
