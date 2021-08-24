@@ -71,22 +71,136 @@ CHME_LICE_COUNT : 담당의사 면허 건수
 ------------------------------------
 
 ![image](https://user-images.githubusercontent.com/80696846/130572167-9d5b6d11-7451-4dc8-b90c-d185fb829b8d.png)
+상관분석 결과를 보면, SIU_CUST_YN과 CLAIM_CNT, TOTAL_VLID_HOSP_OTDA, HOSP_VARIES, HOSP_DVSN_VARIES, CHME_LICE_COUNT가 유효하게 관련있는 컬럼임을 확인할 수 있다.
 
 다중회귀분석 결과
 ------------------------------------
 
 ![image](https://user-images.githubusercontent.com/80696846/130572245-944178e1-1a39-493a-aca9-c4a99a33f4d4.png)
+다중회귀분석 결과를 보면, MINCRDT, CAUS_CODE, CLAIM_CNT, TOTAL_VLID_HOSP_OTDA, HOSP_VARIES, HOSP_DVSN_VARIES, CHME_LICE_COUNT 등이 유효한 컬럼임을 확인할 수 있다.
 
 RandomForest 변수중요도 분석 결과
 ------------------------------------
 
 ![image](https://user-images.githubusercontent.com/80696846/130572377-f86ef01d-8387-45e3-a213-d4eace94b33f.png)
+Random Forest의 변수중요도 분석 결과로부터 CLAIM_CNT, TOTAL_VLID_HOSP_OTDA, HOSP_VARIES, HOSP_DVSN_VARIES, CHME_LICE_COUNT, HEED_HOSP_YN, NON_PAY_RATIO 등이 유효한 컬럼임을 확인할 수 있다.
 
 ------------------------------------------------------------------------------------------------
 
-위 결과를 종합한 경우, 아래와 같은 5개의 컬럼이 보험사기자 여부와 상대적으로 높은 관련성을 보였다.
+위 결과를 종합한 경우, 아래와 같은 5개의 컬럼이 세 가지 분석법 모두에서 공통적으로 보험사기자 여부와 상대적으로 높은 관련성을 보였다.
 1. CHME_LICE_COUNT
 2. HOSP_DVSN_VARIES
 3. HOSP_VARIES
 4. TOTAL_VLID_HOSP_OTDA
 5. CLAIM_CNT
+
+### Cust + CNTT + FPINFO
+----------------------------
+CLLT_FP_PRNO : FP 사번
+
+INCB_DVSN : 재직 구분
+
+CUST_ID : 고객의 ID로, PK로서 고유한 값을 가진다.
+
+DIVIDED_SET : 데이터 셋의 구분, TEST OR TRAIN SET이냐에 따라 구분되며, 분석시에 제거될 가능성 있음
+
+SIU_CUST_YN : 보험사기 여부로, 분석시의 Target Data으로 binary형 데이터
+
+SEX : 고객의 성별(1 : male, 2 : female)
+
+AGE : 고객의 나이
+
+FP_CAREER : FP경력 여부를 의미
+
+OCCP_GRP : 직업 그룹코드
+
+TOTALPREM : 현재까지 납입한 총 보험료
+
+WEDD_YN : 결혼 여부
+
+MAX_PAYM_YEAR : 최대 보험료를 납입한 연도
+
+MAX_PAYM_MONTH : 최대 보험료를 납인한 월
+
+MAX_PRM : 당사에 최대규모의 보험료를 납입했던 월보험료 수준
+
+RGST_MONTH : 고객등록월
+
+RGST_YEAR : 고객등록연도
+
+MNTH_INCM_AMT_AVG : 청약서 소득 평균
+
+MAIN_INSR_AMT_SUM : 주보험금 합계
+
+SUM_ORIG_PREM_SUM : 계약(주계약 + 특약)의 전체 보험료
+
+EXPR_SUM : 종신 보험료의 합계
+
+CNTT_TERM_AVG : 평균 계약 소요일
+
+WORK_YEARS_MAX : 최대근무연수
+
+WORK_YEARS_MIN : 최소근무연수
+
+EXPR_COUNT : 종신보험개수
+
+-------------------------------------------
+
+상관분석 결과
+------------------------------------
+
+![image](https://user-images.githubusercontent.com/80696846/130634594-eafc255d-ee5a-4d56-9dfc-1c4b5c4818cf.png)
+
+상관분석 결과를 보면, SIU_CUST_YN과 유의미하다고 볼 수 있는 컬럼이 아예 존재하지 않는다.
+
+다중회귀분석 결과
+------------------------------------
+### 설명력(0 < R-Squred < 1) 분석
+
+R-squared	0.016	매우 약한 설명력
+
+Adj. R-squared	0.015	매우 약한 설명력
+
+F-statistic	14.3	
+
+Prob (F-statistic)	3.53e-23	
+
+Log-Likelihood	-1429.4	
+
+AIC	2879	
+
+BIC	2948	
+
+### P-VALUE (0.05) 유의 컬럼
+
+SEX	0.0244	3.37	0.001
+
+AGE	0.0084	2.381	0.017
+
+FP_CAREER	0.0444	3.664	0
+
+OCCP_GRP	-0.0017	-2.979	0.003
+
+TOTALPREM	-0.0031	-4.13	0
+
+MAIN_INSR_AMT_SUM	1.02E-10	6.57	0
+
+EXPR_SUM	1.167e-10	-4.521	0
+
+WORK_YEARS_MIN	-0.0013	-2.581	0.01
+
+EXPR_COUNT	0.0029	2.758	0.006
+
+다중회귀분석 결과 위 9개 컬럼에 대해서 유의한 정도의 수치를 산출하였다.
+
+RandomForest 변수중요도 분석 결과
+------------------------------------
+
+![image](https://user-images.githubusercontent.com/80696846/130635012-fa1e39df-81f2-4ec7-9ef6-9503ec8346d1.png)
+Random Forest의 변수중요도 분석 결과로부터 EXPR_COUNT, WORK_YEARS_MIN, WORK_YEARS_MAX의 세 컬럼 정도가 0.1 이상의 중요도를 보였으나, 이같은 결과로는 Target Data와 깊은 관계가 있는 컬럼이 존재한다고 보기 어려웠다.
+
+------------------------------------------------------------------------------------------------
+
+위 결과를 종합하여, CNTT와 FPINFO 테이블에서는 CUST_ID 상의 SIU_CUST_YN을 구분해내기 어렵다는 결론을 도출하였다.
+
+
