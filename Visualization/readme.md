@@ -9,20 +9,20 @@ Code 설명
 
 사용 모듈
 
-numpy
-pandas
-matplotlib
-sk-learn
-scipy
+numpy   
+pandas   
+matplotlib   
+sk-learn   
+scipy   
 
 
 inuput Data
 
-Inusrancedata.csv ( 정제 후 병합된 최종 데이터)
+Inusrancedata.csv ( 정제 후 병합된 최종 데이터)   
 
 
 output 
 
-result.csv
-정확도 및 column별 중요도
-graph를 포함한 시각화자료
+result.csv   
+정확도 및 column별 중요도   
+graph를 포함한 시각화자료   
